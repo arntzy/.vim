@@ -37,3 +37,6 @@
 [submodule "bundle/oblique"]
 	path = bundle/oblique
 	url = https://github.com/arntzy/oblique.git
+[submodule "bundle/pydoc.vim"]
+	path = bundle/pydoc.vim
+	url = https://github.com/vim-scripts/pydoc.vim
