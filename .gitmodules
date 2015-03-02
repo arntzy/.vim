@@ -34,3 +34,6 @@
 [submodule "bundle/vim-surround"]
 	path = bundle/vim-surround
 	url = https://github.com/Tpope/vim-surround
+[submodule "bundle/oblique"]
+	path = bundle/oblique
+	url = https://github.com/arntzy/oblique.git
