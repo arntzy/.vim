@@ -49,3 +49,24 @@
 [submodule "bundle/colorschemes"]
 	path = bundle/colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
+[submodule "bundle/slime"]
+	path = bundle/slime
+	url = https://github.com/jpalardy/vim-slime.git
+[submodule "bundle/repeat"]
+	path = bundle/repeat
+	url = https://github.com/tpope/vim-repeat.git
+[submodule "bundle/vim-obsession"]
+	path = bundle/vim-obsession
+	url = https://github.com/tpope/vim-obsession.git
+[submodule "bundle/inori"]
+	path = bundle/inori
+	url = https://github.com/duythinht/inori.git 
+[submodule "bundle/vim-fanfingtastic"]
+	path = bundle/vim-fanfingtastic 
+	url = https://github.com/dahu/vim-fanfingtastic.git 
+[submodule "bundle/vim-hdevtools"]
+	path = bundle/vim-hdevtools
+	url = https://github.com/bitc/vim-hdevtools.git
+[submodule "bundle/vim-lilypond-integrator"]
+	path = bundle/vim-lilypond-integrator
+	url = https://github.com/gisraptor/vim-lilypond-integrator.git
