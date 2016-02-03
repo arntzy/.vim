@@ -48,6 +48,11 @@ set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}\  " highlight
 set statusline+=%b,0x%-8B\                   " current char
 set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
 
+"BUFFER MAPPING-------------
+map gn :bn<cr>
+map gp :bp<cr>
+map gd :bd<cr> 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC FROM JAMIS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -216,7 +221,7 @@ let g:pymode_folding = 0
 let g:pymode_trim_whitespaces = 1
 let g:pymode_lint_on_write = 1
 let g:pymode_rope = 0
-
+let g:pymode_options_colorcolumn = 0
 "ULTISNIPS ----------
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"

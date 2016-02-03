@@ -40,3 +40,12 @@
 [submodule "bundle/pydoc.vim"]
 	path = bundle/pydoc.vim
 	url = https://github.com/vim-scripts/pydoc.vim
+[submodule "bundle/ultisnips"]
+	path = bundle/ultisnips
+	url = git://github.com/SirVer/ultisnips.git
+[submodule "bundle/supertab"]
+	path = bundle/supertab
+	url = https://github.com/ervandew/supertab.git
+[submodule "bundle/colorschemes"]
+	path = bundle/colorschemes
+	url = https://github.com/flazz/vim-colorschemes.git
