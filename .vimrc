@@ -12,6 +12,26 @@ set autoindent  "If you're indented, new lines will also be indented
 set smartindent  "Automatically indents lines after opening a bracket in programming languages
 set backspace=2  "This makes the backspace key function like it does in other programs.
 
+"COLOR FUCKERY-------
+
+set background=dark
+colorscheme base16-railscasts
+
+highlight clear SignColumn
+highlight VertSplit    ctermbg=236
+highlight ColorColumn  ctermbg=237
+highlight LineNr       ctermbg=236 ctermfg=240
+highlight CursorLineNr ctermbg=236 ctermfg=240
+highlight CursorLine   ctermbg=236
+highlight StatusLineNC ctermbg=238 ctermfg=0
+highlight StatusLine   ctermbg=240 ctermfg=12
+highlight IncSearch    ctermbg=3   ctermfg=1
+highlight Search       ctermbg=1   ctermfg=3
+highlight Visual       ctermbg=3   ctermfg=0
+highlight Pmenu        ctermbg=240 ctermfg=12
+highlight PmenuSel     ctermbg=3   ctermfg=1
+highlight SpellBad     ctermbg=0   ctermfg=1
+
 "TABBING---------
 set tabstop=4  "How much space Vim gives to a tab
 set softtabstop=4 " number of spaces in tab when editing
@@ -141,13 +161,13 @@ nnoremap ,pf :vnew \| r !py.test <C-r>=bufname("%")<CR><CR><ESC>:setlocal buftyp
 nnoremap ,pa :vnew \| r !py.test<CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
 
 " hard-reset currently open file, to reset things like :set wrap to defaults
-nnoremap ,r :e __nonexistantfile__ \| e <C-r>=bufname("%")<CR><CR>
+"nnoremap ,r :e __nonexistantfile__ \| e <C-r>=bufname("%")<CR><CR>
 
 " ,n opens nerdtree if you ever want it
 nnoremap ,n :NERDTree<CR>
 
 " ,r searchs and replaces globally the word under the cursor
-nnoremap <Leader>r :%s/\<<C-r><C-w>\>//g<Left><Left>
+nnoremap <Leader>rs :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "NOT WORKING
@@ -178,6 +198,9 @@ nnoremap <Leader>r :%s/\<<C-r><C-w>\>//g<Left><Left>
 " PLUGIN CONFIG
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"DelimitMate --------
+let delimitMate_expand_cr = 1
+
 "HDEVTOOLS -------
 au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F5> :HdevtoolsClear<CR>
@@ -190,6 +213,9 @@ au FileType haskell nnoremap <buffer> <silent> <F6> :HdevtoolsInfo<CR>
 map <silent> tu :call GHC_BrowseAll()<CR>
 " Type Lookup
 map <silent> tw :call GHC_ShowType(1)<CR>
+
+"VIM-POLYGLOT SYNTAX HIGHLIGHTING -----------
+let g:jsx_ext_required = 0
 
 
 "SYNTASTIC -------

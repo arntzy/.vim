@@ -70,3 +70,9 @@
 [submodule "bundle/vim-lilypond-integrator"]
 	path = bundle/vim-lilypond-integrator
 	url = https://github.com/gisraptor/vim-lilypond-integrator.git
+[submodule "bundle/delimitMate"]
+	path = bundle/delimitMate
+	url = https://github.com/Raimondi/delimitMate.git
+[submodule "bundle/vim-polyglot"]
+	path = bundle/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot.git
