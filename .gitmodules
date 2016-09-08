@@ -76,3 +76,18 @@
 [submodule "bundle/vim-polyglot"]
 	path = bundle/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot.git
+[submodule "bundle/vim-better-javascript-completion"]
+	path = bundle/vim-better-javascript-completion
+	url = https://github.com/1995eaton/vim-better-javascript-completion.git
+[submodule "bundle/neocomplete"]
+	path = bundle/neocomplete
+	url = https://github.com/Shougo/neocomplete.vim.git
+[submodule "bundle/vim-closetag"]
+	path = bundle/vim-closetag
+	url = https://github.com/alvan/vim-closetag.git
+[submodule "bundle/vim-unimpaired"]
+	path = bundle/vim-unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git
+[submodule "bundle/vim-eunuch"]
+	path = bundle/vim-eunuch
+	url = git://github.com/tpope/vim-eunuch.git

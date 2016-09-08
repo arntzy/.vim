@@ -73,6 +73,19 @@ map gn :bn<cr>
 map gp :bp<cr>
 map gd :bd<cr> 
 
+"SEARCH OPTIONS-------------------
+set ic
+map \s :set smartcase!<CR>
+
+""#################################
+""# ARNTZY BOY MAPPINGS FROM HELL #
+""#################################
+
+"deletes a buffer without closing the split window
+nnoremap <C-c> :bp\|bd #<CR>
+com! FormatJSON %!python -m json.tool
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC FROM JAMIS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -91,7 +104,7 @@ set nowrap
 " lines, and f3 reenables it
 set mouse=a 
 nnoremap <F3> :set mouse=a<CR>
-nnoremap <F4> :set mouse=<CR>
+"nnoremap <F4> :set mouse=<CR>
 
 " Key bindings for adjusting the tab/shift width.
 nnoremap <leader>w2 :setlocal tabstop=2<CR>:setlocal shiftwidth=2<CR>
@@ -197,6 +210,8 @@ nnoremap <Leader>rs :%s/\<<C-r><C-w>\>//g<Left><Left>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN CONFIG
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-closetags ---------
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.js"
 
 "DelimitMate --------
 let delimitMate_expand_cr = 1
@@ -206,8 +221,20 @@ au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F5> :HdevtoolsClear<CR>
 au FileType haskell nnoremap <buffer> <silent> <F6> :HdevtoolsInfo<CR>
 
+"NEOCOMPLETE ------------------------
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
 
-"GHC-MOD --------
+"Enable Omni Completion
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+"GHC-MOD ---------------------------
 
 " Reload
 map <silent> tu :call GHC_BrowseAll()<CR>
@@ -217,6 +244,16 @@ map <silent> tw :call GHC_ShowType(1)<CR>
 "VIM-POLYGLOT SYNTAX HIGHLIGHTING -----------
 let g:jsx_ext_required = 0
 
+"BETTER-JAVASCRIPT-COMPLETION -------------
+let g:vimjs#casesensistive = 1
+" Enabled by default. flip the value to make completion matches case insensitive
+
+let g:vimjs#smartcomplete = 0
+" Disabled by default. Enabling this will let vim complete matches at any location
+" e.g. typing 'ocument' will suggest 'document' if enabled.
+
+let g:vimjs#chromeapis = 0
+" Disabled by default. Toggling this will enable completion for a number of Chrome's JavaScript extension APIs
 
 "SYNTASTIC -------
 map <silent> <Leader>e :Errors<CR>
@@ -252,6 +289,16 @@ let g:pymode_options_colorcolumn = 0
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+"BOXES --------------
+vmap ,mc !boxes -d shell <CR>
+nmap ,mc !!boxes -d shell <CR>
+vmap ,xc !boxes -d shell -r<CR>
+nmap ,xc !!boxes -d shell -r<CR>
+
+"FIGLET --------------
+vmap ,fs !figlet -cf slant <CR>
+vmap ,fr !figlet -c <CR>
 
 "LILYPOND Vim mode -- If this leads to errors, comment out the next 4 lines. 
 "filetype off
