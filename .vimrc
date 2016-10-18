@@ -78,13 +78,15 @@ set ic
 map \s :set smartcase!<CR>
 
 ""#################################
-""# ARNTZY BOY MAPPINGS FROM HELL #
+""# ARNTZY BOY CONFIGS FROM HELL  #
 ""#################################
 
 "deletes a buffer without closing the split window
 nnoremap <C-c> :bp\|bd #<CR>
 com! FormatJSON %!python -m json.tool
 
+"set the yank to the system clipboard as well, comment out if strange behavior
+set clipboard=unnamed
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC FROM JAMIS
@@ -210,6 +212,10 @@ nnoremap <Leader>rs :%s/\<<C-r><C-w>\>//g<Left><Left>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN CONFIG
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-latex-live-preview
+autocmd Filetype tex setl updatetime=1
+let g:livepreview_previewer = 'open -a Preview'
+
 "vim-closetags ---------
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.js"
 

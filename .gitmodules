@@ -91,3 +91,9 @@
 [submodule "bundle/vim-eunuch"]
 	path = bundle/vim-eunuch
 	url = git://github.com/tpope/vim-eunuch.git
+[submodule "bundle/vim-latex-live-preview"]
+	path = bundle/vim-latex-live-preview
+	url = https://github.com/xuhdev/vim-latex-live-preview.git
+[submodule "bundle/vim-vimtex"]
+	path = bundle/vim-vimtex
+	url = https://github.com/lervag/vimtex.git
