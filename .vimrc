@@ -33,11 +33,11 @@ highlight PmenuSel     ctermbg=3   ctermfg=1
 highlight SpellBad     ctermbg=0   ctermfg=1
 
 "TABBING---------
-set tabstop=4  "How much space Vim gives to a tab
-set softtabstop=4 " number of spaces in tab when editing
+set tabstop=2  "How much space Vim gives to a tab
+set softtabstop=2 " number of spaces in tab when editing
 set smarttab "Improves tabbing
 set expandtab " tabs are spaces
-set shiftwidth=4  "Assists code formatting
+set shiftwidth=2  "Assists code formatting
 
 "CURSOR----------
 "set cursorline          " highlight current line
@@ -76,17 +76,27 @@ map gd :bd<cr>
 "SEARCH OPTIONS-------------------
 set ic
 map \s :set smartcase!<CR>
-
+set incsearch
 ""#################################
 ""# ARNTZY BOY CONFIGS FROM HELL  #
 ""#################################
 
+"Pretty Printing for a little Pretty Pony
+command! PrettyPrintJSON %!python -m json.tool
+command! PrettyPrintHTML !tidy -mi -html -wrap 0 %
+command! PrettyPrintXML !tidy -mi -xml -wrap 0 %
+
 "deletes a buffer without closing the split window
 nnoremap <C-c> :bp\|bd #<CR>
 com! FormatJSON %!python -m json.tool
+nnoremap <leader><space> :noh<cr>   " Clear search highlighting with ,<space>
+nnoremap <tab> :bnext<cr>           " Tab to next buffer
+nnoremap <s-tab> :bprevious<cr>     " Shift-tab to previous buffer
+nnoremap <leader><leader> <C-^>     " Switch between last two buffers
 
 "set the yank to the system clipboard as well, comment out if strange behavior
 set clipboard=unnamed
+" noremap % v%
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC FROM JAMIS
@@ -122,6 +132,8 @@ cmap w!! w !sudo tee >/dev/null %
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
+" A near vim-pasta like experience for pasting...
+nnoremap <leader>p p`[v`]=
 
 " color the normally paren-highlight 
 "highlight MatchParen ctermfg=darkblue
@@ -178,40 +190,25 @@ nnoremap ,pa :vnew \| r !py.test<CR><ESC>:setlocal buftype=nofile bufhidden=wipe
 " hard-reset currently open file, to reset things like :set wrap to defaults
 "nnoremap ,r :e __nonexistantfile__ \| e <C-r>=bufname("%")<CR><CR>
 
-" ,n opens nerdtree if you ever want it
-nnoremap ,n :NERDTree<CR>
-
 " ,r searchs and replaces globally the word under the cursor
 nnoremap <Leader>rs :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"NOT WORKING
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" ,t inserts the current time, like this:
-" September 21, 2013 09:37:34 PM
-
-"nnoremap ,t :read !@ 'datetime.datetime.now().strftime("_B _d, _Y _I:_M:_S _p".replace("_", chr(37)))'<CR>
-" check what month the currently selected number represents... don't even
-" remember why I put this in the global vimrc, lol
-
-"vnoremap ,w :!@ 'datetime.datetime(2013, int(inp()), 1).strftime(chr(37) + "B")'<CR>
-
-"set up ctrl-p, a fuzzy file opening tool; very very nice and unobtrusive way
- "to quickly open files, autodetects what directory it should start from, so
- "it usually doesn't search outside a project's directory
-"set wildignore=*.pyc,*.so,.git,.hg,htmlcov,__pycache__
-"let g:ctrlp_open_new_file='v'
-"let g:ctrlp_lazy_update=50
-"let g:ctrlp_follow_symlinks=1
-"let g:ctrlp_prompt_mappings = {
-            "\ 'AcceptSelection("v")': ['<cr>'],
-            "\ 'AcceptSelection("e")': ['<c-v>']
-            "\ }
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN CONFIG
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+packadd! matchit
+
+"instant markdown previewer
+let g:instant_markdown_autostart = 0
+
+"NERDTree --------------
+" ,n opens nerdtree if you ever want it
+nnoremap ,n :NERDTree<CR>
+"toggle NERDTree
+silent! nmap <C-p> :NERDTreeToggle<CR>
+let g:NERDTreeMapActivateNode="o"
+let NERDTreeShowHidden=1
+
 "vim-latex-live-preview
 autocmd Filetype tex setl updatetime=1
 let g:livepreview_previewer = 'open -a Preview'
@@ -248,7 +245,7 @@ map <silent> tu :call GHC_BrowseAll()<CR>
 map <silent> tw :call GHC_ShowType(1)<CR>
 
 "VIM-POLYGLOT SYNTAX HIGHLIGHTING -----------
-let g:jsx_ext_required = 0
+let g:jsx_ext_required = 1
 
 "BETTER-JAVASCRIPT-COMPLETION -------------
 let g:vimjs#casesensistive = 1
@@ -277,7 +274,7 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_quiet_messages = { "type": "style" }
 let g:syntastic_ocaml_checkers = ['merlin']
 let g:syntastic_python_pylint_args = ['--errors-only']
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['jshint', 'eslint'] 
 let g:loaded_syntastic_haskell_ghc_mod_checker = 1
 
 "VIM-SLIME --------
@@ -305,6 +302,10 @@ nmap ,xc !!boxes -d shell -r<CR>
 "FIGLET --------------
 vmap ,fs !figlet -cf slant <CR>
 vmap ,fr !figlet -c <CR>
+
+" nerdcommenter -----------
+let g:NERDSpaceDelims = 1
+let NERDRemoveExtraSpaces = 1
 
 "LILYPOND Vim mode -- If this leads to errors, comment out the next 4 lines. 
 "filetype off

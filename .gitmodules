@@ -97,3 +97,9 @@
 [submodule "bundle/vim-vimtex"]
 	path = bundle/vim-vimtex
 	url = https://github.com/lervag/vimtex.git
+[submodule "bundle/vim-autoformat"]
+	path = bundle/vim-autoformat
+	url = https://github.com/Chiel92/vim-autoformat.git
+[submodule "bundle/vim-grepper"]
+	path = bundle/vim-grepper
+	url = https://github.com/mhinz/vim-grepper.git
