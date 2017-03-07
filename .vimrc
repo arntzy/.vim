@@ -1,4 +1,6 @@
-execute pathogen#infect()
+let g:pathogen_disabled = []
+call add(g:pathogen_disabled, 'oblique')
+call pathogen#infect()
 
 syntax on
 "syntax enable
@@ -15,7 +17,7 @@ set backspace=2  "This makes the backspace key function like it does in other pr
 "COLOR FUCKERY-------
 
 set background=dark
-colorscheme base16-railscasts
+" colorscheme base16-railscasts
 
 highlight clear SignColumn
 highlight VertSplit    ctermbg=236
