@@ -14,27 +14,60 @@ set autoindent  "If you're indented, new lines will also be indented
 set smartindent  "Automatically indents lines after opening a bracket in programming languages
 set backspace=2  "This makes the backspace key function like it does in other programs.
 
-"COLOR FUCKERY-------
-
+"""""""""""""""""
+" COLOR FUCKERY "
+"""""""""""""""""
 set background=dark
-" colorscheme base16-railscasts
 
-highlight clear SignColumn
-highlight VertSplit    ctermbg=236
-highlight ColorColumn  ctermbg=237
-highlight LineNr       ctermbg=236 ctermfg=240
-highlight CursorLineNr ctermbg=236 ctermfg=240
-highlight CursorLine   ctermbg=236
-highlight StatusLineNC ctermbg=238 ctermfg=0
-highlight StatusLine   ctermbg=240 ctermfg=12
-highlight IncSearch    ctermbg=3   ctermfg=1
-highlight Search       ctermbg=1   ctermfg=3
-highlight Visual       ctermbg=3   ctermfg=0
-highlight Pmenu        ctermbg=240 ctermfg=12
-highlight PmenuSel     ctermbg=3   ctermfg=1
-highlight SpellBad     ctermbg=0   ctermfg=1
+""""""""""""""
+" railscasts "
+""""""""""""""
+colorscheme railscasts
 
-"TABBING---------
+""""""""""""""
+" crunchbang "
+""""""""""""""
+" set t_Co=16
+" colorscheme crunchbang
+
+"""""""""""
+" gruvbox "
+"""""""""""
+" let g:gruvbox_italic=1
+" let g:gruvbox_italicize_strings=1
+" let g:gruvbox_contrast_dark='medium'
+" colorscheme gruvbox
+
+"""""""""""""""""""
+" color overrides "
+"""""""""""""""""""
+" highlight clear SignColumn
+" highlight VertSplit    ctermbg=236
+" highlight ColorColumn  ctermbg=237
+" highlight LineNr       ctermbg=236 ctermfg=240
+" highlight CursorLineNr ctermbg=236 ctermfg=240
+" highlight CursorLine   ctermbg=236
+" highlight StatusLineNC ctermbg=238 ctermfg=0
+" highlight StatusLine   ctermbg=240 ctermfg=12
+" highlight IncSearch    ctermbg=3   ctermfg=1
+" highlight Search       ctermbg=1   ctermfg=3
+" highlight Visual       ctermbg=3   ctermfg=0
+" highlight Pmenu        ctermbg=240 ctermfg=12
+" highlight PmenuSel     ctermbg=3   ctermfg=1
+" highlight SpellBad     ctermbg=0   ctermfg=1
+
+
+
+""""""""
+" TERN "
+""""""""
+
+let g:tern_map_keys = 1
+let g:tern_map_prefix="<leader>"
+
+"""""""""""
+" TABBING "
+"""""""""""
 set tabstop=2  "How much space Vim gives to a tab
 set softtabstop=2 " number of spaces in tab when editing
 set smarttab "Improves tabbing
@@ -79,9 +112,10 @@ map gd :bd<cr>
 set ic
 map \s :set smartcase!<CR>
 set incsearch
-""#################################
-""# ARNTZY BOY CONFIGS FROM HELL  #
-""#################################
+
+""""""""""""""""""""""""""""""""
+" ARNTZY BOY CONFIGS FROM HELL "
+""""""""""""""""""""""""""""""""
 
 "Pretty Printing for a little Pretty Pony
 command! PrettyPrintJSON %!python -m json.tool
@@ -100,9 +134,9 @@ nnoremap <leader><leader> <C-^>     " Switch between last two buffers
 set clipboard=unnamed
 " noremap % v%
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MISC FROM JAMIS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""
+" MISC FROM JAMIS "
+"""""""""""""""""""
 
 " remap <leader> to ,
 let mapleader = ","
@@ -192,7 +226,7 @@ nnoremap ,pa :vnew \| r !py.test<CR><ESC>:setlocal buftype=nofile bufhidden=wipe
 " hard-reset currently open file, to reset things like :set wrap to defaults
 "nnoremap ,r :e __nonexistantfile__ \| e <C-r>=bufname("%")<CR><CR>
 
-" ,r searchs and replaces globally the word under the cursor
+" ,rs searchs and replaces globally the word under the cursor
 nnoremap <Leader>rs :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -247,7 +281,7 @@ map <silent> tu :call GHC_BrowseAll()<CR>
 map <silent> tw :call GHC_ShowType(1)<CR>
 
 "VIM-POLYGLOT SYNTAX HIGHLIGHTING -----------
-let g:jsx_ext_required = 1
+let g:jsx_ext_required = 0
 
 "BETTER-JAVASCRIPT-COMPLETION -------------
 let g:vimjs#casesensistive = 1
@@ -259,6 +293,9 @@ let g:vimjs#smartcomplete = 0
 
 let g:vimjs#chromeapis = 0
 " Disabled by default. Toggling this will enable completion for a number of Chrome's JavaScript extension APIs
+
+let g:javascript_plugin_jsdoc = 1
+" enables syntax highlighting for JSDOC
 
 "SYNTASTIC -------
 map <silent> <Leader>e :Errors<CR>
@@ -276,7 +313,7 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_quiet_messages = { "type": "style" }
 let g:syntastic_ocaml_checkers = ['merlin']
 let g:syntastic_python_pylint_args = ['--errors-only']
-let g:syntastic_javascript_checkers = ['jshint', 'eslint'] 
+let g:syntastic_javascript_checkers = ['eslint'] 
 let g:loaded_syntastic_haskell_ghc_mod_checker = 1
 
 "VIM-SLIME --------
@@ -290,16 +327,46 @@ let g:pymode_trim_whitespaces = 1
 let g:pymode_lint_on_write = 1
 let g:pymode_rope = 0
 let g:pymode_options_colorcolumn = 0
+
 "ULTISNIPS ----------
+let g:UltiSnipsSnippetsDir=$HOME.'/.vim/sniplets'
+let g:UltiSnipsSnippetDirectories=['UltiSnips', 'sniplets']
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+
+"""""""""""""""""""
+" YOU COMPLETE ME "
+"""""""""""""""""""
+let g:ycm_use_ultisnips_completer = 1
+
 "BOXES --------------
-vmap ,mc !boxes -d shell <CR>
-nmap ,mc !!boxes -d shell <CR>
-vmap ,xc !boxes -d shell -r<CR>
-nmap ,xc !!boxes -d shell -r<CR>
+autocmd BufEnter * nmap ,mc !!boxes -d shell<CR>
+autocmd BufEnter * vmap ,mc !boxes -d shell<CR>
+autocmd BufEnter * nmap ,xc !!boxes -d shell -r<CR>
+autocmd BufEnter * vmap ,xc !boxes -d shell -r<CR>
+autocmd BufEnter *.html nmap ,mc !!boxes -d html-cmt<CR>
+autocmd BufEnter *.html vmap ,mc !boxes -d html-cmt<CR>
+autocmd BufEnter *.html nmap ,xc !!boxes -d html-cmt -r<CR>
+autocmd BufEnter *.html vmap ,xc !boxes -d html-cmt -r<CR>
+autocmd BufEnter *.[chly],*.[pc]c nmap ,mc !!boxes -d c-cmt<CR>
+autocmd BufEnter *.[chly],*.[pc]c vmap ,mc !boxes -d c-cmt<CR>
+autocmd BufEnter *.[chly],*.[pc]c nmap ,xc !!boxes -d c-cmt -r<CR>
+autocmd BufEnter *.[chly],*.[pc]c vmap ,xc !boxes -d c-cmt -r<CR>
+autocmd BufEnter *.js nmap ,mc !!boxes -d c<CR>
+autocmd BufEnter *.js vmap ,mc !boxes -d c<CR>
+autocmd BufEnter *.js nmap ,xc !!boxes -d c -r<CR>
+autocmd BufEnter *.js vmap ,xc !boxes -d c -r<CR>
+autocmd BufEnter *.C,*.cpp,*.java nmap ,mc !!boxes -d java-cmt<CR>
+autocmd BufEnter *.C,*.cpp,*.java vmap ,mc !boxes -d java-cmt<CR>
+autocmd BufEnter *.C,*.cpp,*.java nmap ,xc !!boxes -d java-cmt -r<CR>
+autocmd BufEnter *.C,*.cpp,*.java vmap ,xc !boxes -d java-cmt -r<CR>
+autocmd BufEnter .vimrc nmap ,mc !!boxes -d vimbox<CR>
+autocmd BufEnter .vimrc vmap ,mc !boxes -d vimbox<CR>
+autocmd BufEnter .vimrc nmap ,xc !!boxes -d vimbox -r<CR>
+autocmd BufEnter .vimrc vmap ,xc !boxes -d vimbox -r<CR>
+
 
 "FIGLET --------------
 vmap ,fs !figlet -cf slant <CR>
@@ -314,3 +381,20 @@ let NERDRemoveExtraSpaces = 1
 "set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
 "filetype on
 "syntax on
+
+""""""""""""""""""""""""""""""""""""""
+" LOCATION LIST AND QUICKFIX WINDOWS "
+""""""""""""""""""""""""""""""""""""""
+noremap <leader>c :ccl <bar> lcl<CR>
+
+"""""""""""""""""""
+" FZF AND RIPGREP "
+"""""""""""""""""""
+noremap <leader>f :Files ~<CR>
+
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+  \ -g "!{.git,node_modules,vendor}/*" '
+
+command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
