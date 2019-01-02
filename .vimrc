@@ -6,13 +6,16 @@ syntax on
 "syntax enable
 set number "Enables line numbering
 filetype plugin indent on
-"set completeopt-=preview
+" set completeopt-=preview
+
 set nocp
 set noerrorbells visualbell t_vb=
 set showmatch "Highlights matching brackets in programming languages
 set autoindent  "If you're indented, new lines will also be indented
 set smartindent  "Automatically indents lines after opening a bracket in programming languages
 set backspace=2  "This makes the backspace key function like it does in other programs.
+set clipboard-=autoselect
+set guioptions-=a
 
 """""""""""""""""
 " COLOR FUCKERY "
@@ -20,18 +23,18 @@ set backspace=2  "This makes the backspace key function like it does in other pr
 set background=dark
 
 """"""""""""""
-" railscasts "
+" RAILSCASTS "
 """"""""""""""
 colorscheme railscasts
 
 """"""""""""""
-" crunchbang "
+" CRUNCHBANG "
 """"""""""""""
 " set t_Co=16
 " colorscheme crunchbang
 
 """""""""""
-" gruvbox "
+" GRUVBOX "
 """""""""""
 " let g:gruvbox_italic=1
 " let g:gruvbox_italicize_strings=1
@@ -39,7 +42,7 @@ colorscheme railscasts
 " colorscheme gruvbox
 
 """""""""""""""""""
-" color overrides "
+" COLOR OVERRIDES " 
 """""""""""""""""""
 " highlight clear SignColumn
 " highlight VertSplit    ctermbg=236
@@ -56,8 +59,6 @@ colorscheme railscasts
 " highlight PmenuSel     ctermbg=3   ctermfg=1
 " highlight SpellBad     ctermbg=0   ctermfg=1
 
-
-
 """"""""
 " TERN "
 """"""""
@@ -73,8 +74,12 @@ set softtabstop=2 " number of spaces in tab when editing
 set smarttab "Improves tabbing
 set expandtab " tabs are spaces
 set shiftwidth=2  "Assists code formatting
+let g:SuperTabClosePreviewOnPopupClose = 1
 
-"CURSOR----------
+
+""""""""""
+" CURSOR "
+""""""""""
 "set cursorline          " highlight current line
 "setlocal spell  "Enables spell checking (CURRENTLY DISABLED because it's kinda annoying). Make sure to uncomment the next line if you use this.
 "set spellfile=~/.vimwords.add  "The location of the spellcheck dictionary. Uncomment this line if you uncomment the previous line.
@@ -89,7 +94,9 @@ set wcm=<c-z>
 map <f4> :emenu <c-z>
 "--- End sweet menu
 
-"STATUS LINE--------
+"""""""""""""""
+" STATUS LINE "
+"""""""""""""""
 set laststatus=2
 set statusline=   " clear the statusline for when vimrc is reloaded
 set statusline+=%-3.3n\                      " buffer number
@@ -116,6 +123,15 @@ set incsearch
 """"""""""""""""""""""""""""""""
 " ARNTZY BOY CONFIGS FROM HELL "
 """"""""""""""""""""""""""""""""
+" Yanking so hard
+
+" delete without yanking
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+
+" replace currently selected text with default register
+" without yanking it
+vnoremap <leader>p "_dP
 
 "Pretty Printing for a little Pretty Pony
 command! PrettyPrintJSON %!python -m json.tool
@@ -215,13 +231,13 @@ nnoremap ,k :aboveleft new<CR>:execute "buffer! " . g:wingrab_last_buffer<CR><C-
 nnoremap ,j :rightbelow new<CR>:execute "buffer! " . g:wingrab_last_buffer<CR><C-=><ESC><ESC>
 
 " show the version of this file that is currently committed to git, if we're in a git repo; useless otherwise
-nnoremap ,z :vnew \| setlocal syntax=<C-r>=&syntax<CR> \| r !git show HEAD:<C-r>=bufname("%")<CR><CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
+" nnoremap ,z :vnew \| setlocal syntax=<C-r>=&syntax<CR> \| r !git show HEAD:<C-r>=bufname("%")<CR><CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
 
 " ,pf runs pytest on the current file and shows its output in a new window
-nnoremap ,pf :vnew \| r !py.test <C-r>=bufname("%")<CR><CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
+" nnoremap ,pf :vnew \| r !py.test <C-r>=bufname("%")<CR><CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
 
 " ,pa runs pytest in the directory vim was opened from with no filtering as to what is run
-nnoremap ,pa :vnew \| r !py.test<CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
+" nnoremap ,pa :vnew \| r !py.test<CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
 
 " hard-reset currently open file, to reset things like :set wrap to defaults
 "nnoremap ,r :e __nonexistantfile__ \| e <C-r>=bufname("%")<CR><CR>
@@ -260,12 +276,18 @@ au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F5> :HdevtoolsClear<CR>
 au FileType haskell nnoremap <buffer> <silent> <F6> :HdevtoolsInfo<CR>
 
-"NEOCOMPLETE ------------------------
+"""""""""""""""
+" NEOCOMPLETE "
+"""""""""""""""
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 
+call neocomplete#util#set_default_dictionary(
+  \ 'g:neocomplete#sources#omni#input_patterns',
+  \ 'elm',
+  \ '\.')
 "Enable Omni Completion
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -273,17 +295,23 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-"GHC-MOD ---------------------------
-
+"""""""""""
+" GHC-MOD "
+"""""""""""
 " Reload
 map <silent> tu :call GHC_BrowseAll()<CR>
 " Type Lookup
 map <silent> tw :call GHC_ShowType(1)<CR>
 
-"VIM-POLYGLOT SYNTAX HIGHLIGHTING -----------
+""""""""""""""""""""""""""""""""""""
+" VIM-POLYGLOT SYNTAX HIGHLIGHTING "
+""""""""""""""""""""""""""""""""""""
 let g:jsx_ext_required = 0
+let g:polyglot_disabled = ['elm']
 
-"BETTER-JAVASCRIPT-COMPLETION -------------
+""""""""""""""""""""""""""""""""
+" BETTER-JAVASCRIPT-COMPLETION "
+""""""""""""""""""""""""""""""""
 let g:vimjs#casesensistive = 1
 " Enabled by default. flip the value to make completion matches case insensitive
 
@@ -297,7 +325,9 @@ let g:vimjs#chromeapis = 0
 let g:javascript_plugin_jsdoc = 1
 " enables syntax highlighting for JSDOC
 
-"SYNTASTIC -------
+"""""""""""""
+" SYNTASTIC "
+"""""""""""""
 map <silent> <Leader>e :Errors<CR>
 map <Leader>s :SyntasticToggleMode<CR>
 
@@ -313,35 +343,69 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_quiet_messages = { "type": "style" }
 let g:syntastic_ocaml_checkers = ['merlin']
 let g:syntastic_python_pylint_args = ['--errors-only']
-let g:syntastic_javascript_checkers = ['eslint'] 
+let g:syntastic_javascript_checkers = ['standard'] 
 let g:loaded_syntastic_haskell_ghc_mod_checker = 1
 
-"VIM-SLIME --------
+"""""""""""""""""
+" ELM SYNTASTIC "
+"""""""""""""""""
+let g:elm_syntastic_show_warnings = 1
+
+"""""""""""
+" ELM VIM "
+"""""""""""
+let g:elm_jump_to_error = 0
+let g:elm_make_output_file = "elm.js"
+let g:elm_make_show_warnings = 0
+let g:elm_syntastic_show_warnings = 0
+let g:elm_browser_command = ""
+let g:elm_detailed_complete = 1
+let g:elm_format_autosave = 1
+let g:elm_format_fail_silently = 0
+let g:elm_setup_keybindings = 1
+"
+"""""""""""""
+" VIM-SLIME "
+"""""""""""""
 let g:slime_target = "tmux"
 let g:slime_paste_file = tempname()
 
-
-"PYMODE -------
+""""""""""
+" PYMODE "
+""""""""""
 let g:pymode_folding = 0
 let g:pymode_trim_whitespaces = 1
 let g:pymode_lint_on_write = 1
 let g:pymode_rope = 0
 let g:pymode_options_colorcolumn = 0
 
-"ULTISNIPS ----------
+"""""""""""""
+" ULTISNIPS "
+"""""""""""""
 let g:UltiSnipsSnippetsDir=$HOME.'/.vim/sniplets'
 let g:UltiSnipsSnippetDirectories=['UltiSnips', 'sniplets']
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
+let g:ultisnips_javascript = {
+  \ 'keyword-spacing': 'always',
+  \ 'semi': 'never',
+  \ 'space-before-function-paren': 'always',
+  \ }
 
 """""""""""""""""""
 " YOU COMPLETE ME "
 """""""""""""""""""
 let g:ycm_use_ultisnips_completer = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
 
-"BOXES --------------
+let g:ycm_semantic_triggers = {
+     \ 'elm' : ['.'],
+     \}
+"""""""""
+" BOXES "
+"""""""""
 autocmd BufEnter * nmap ,mc !!boxes -d shell<CR>
 autocmd BufEnter * vmap ,mc !boxes -d shell<CR>
 autocmd BufEnter * nmap ,xc !!boxes -d shell -r<CR>
@@ -368,19 +432,33 @@ autocmd BufEnter .vimrc nmap ,xc !!boxes -d vimbox -r<CR>
 autocmd BufEnter .vimrc vmap ,xc !boxes -d vimbox -r<CR>
 
 
-"FIGLET --------------
+""""""""""
+" FIGLET "
+""""""""""
 vmap ,fs !figlet -cf slant <CR>
 vmap ,fr !figlet -c <CR>
 
-" nerdcommenter -----------
+"""""""""""""""""
+" NERDCOMMENTER "
+"""""""""""""""""
 let g:NERDSpaceDelims = 1
 let NERDRemoveExtraSpaces = 1
+" Not specific to NERDCOMMENTER but removes the very annoying auto comment of the next line in vim
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 "LILYPOND Vim mode -- If this leads to errors, comment out the next 4 lines. 
 "filetype off
 "set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
 "filetype on
 "syntax on
+
+"""""""""
+" TIDAL "
+"""""""""
+
+let g:tidal_default_config = {"socket_name": "default", "target_pane": "0:6.2"}
+map <Enter> o<ESC>
+" map <s-Enter> O<ESC>
 
 """"""""""""""""""""""""""""""""""""""
 " LOCATION LIST AND QUICKFIX WINDOWS "
@@ -390,7 +468,7 @@ noremap <leader>c :ccl <bar> lcl<CR>
 """""""""""""""""""
 " FZF AND RIPGREP "
 """""""""""""""""""
-noremap <leader>f :Files ~<CR>
+noremap <leader>f :Files <CR>
 
 let g:rg_command = '
   \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
