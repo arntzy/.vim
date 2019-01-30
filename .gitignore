@@ -9,4 +9,7 @@ undo
 session
 tags
 colors/
-init.vim
+
+#local
+plugged/
+black/

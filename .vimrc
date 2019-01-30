@@ -1,7 +1,129 @@
-let g:pathogen_disabled = []
-call add(g:pathogen_disabled, 'oblique')
-call pathogen#infect()
+" vim-plug auto installation
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
+""""""""""""
+" vim-plug "
+""""""""""""
+call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-sensible'
+Plug 'jpo/vim-railscasts-theme'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'w0rp/ale'
+Plug 'tpope/vim-surround'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-obsession'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'mattn/emmet-vim'
+Plug 'ambv/black'
+Plug 'janko-m/vim-test'
+Plug 'manicmaniac/coconut.vim'
+""""""""""""""""""""""""""""
+" Tmux/Ipython Integration "
+""""""""""""""""""""""""""""
+Plug 'benmills/vimux'
+Plug 'julienr/vim-cellmode'
+""""""""""""
+" Hardtime "
+""""""""""""
+Plug 'takac/vim-hardtime'
+"""""""""
+" TIDAL "
+"""""""""
+Plug 'tidalcycles/vim-tidal'
+""""""""""""
+" Snippets "
+""""""""""""
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+""""""""""""""
+" Completion "
+""""""""""""""
+""""""""""""
+" JEDI-VIM "
+""""""""""""
+" Plug 'davidhalter/jedi-vim'
+"""""""""""""""""
+" YOUCOMPLETEME "
+"""""""""""""""""
+Plug 'valloric/youcompleteme'
+""""""""""""
+" DEOPLETE "
+""""""""""""
+" if has('nvim')
+  " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+  " Plug 'Shougo/deoplete.nvim'
+  " Plug 'roxma/nvim-yarp'
+  " Plug 'roxma/vim-hug-neovim-rpc'
+" endif
+""""""""
+" NCM2 "
+""""""""
+" Plug 'ncm2/ncm2'
+" Plug 'roxma/nvim-yarp'
+" " NOTE: you need to install completion sources to get completions. Check
+" " our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
+" Plug 'ncm2/ncm2-bufword'
+" Plug 'ncm2/ncm2-tmux'
+" Plug 'ncm2/ncm2-path'
+" Plug 'ncm2/ncm2-jedi'
+""""""""
+" Rest "
+""""""""
+Plug 'tpope/vim-unimpaired'
+Plug 'ervandew/supertab'
+Plug 'alvan/vim-closetag'
+
+"""""""""""""""
+" DELIMITMATE "
+"""""""""""""""
+" Plug 'raimondi/delimitmate'
+
+Plug 'tpope/vim-fugitive'
+Plug 'dahu/vim-fanfingtastic'
+Plug 'tpope/vim-eunuch'
+Plug 'terryma/vim-multiple-cursors'
+
+""""""""""""""""""""""""""""""""""""""""
+" Old Plugs From Previous Installation "
+""""""""""""""""""""""""""""""""""""""""
+" chuck.vim
+" elm-vim
+" gruvbox
+" inori
+" oblique
+" pydoc.vim
+" repeat
+" slime
+" syntastic
+" syntax
+" tern_for_vim
+" tlib_vim
+" vim-addon-mw-utils
+" vim-autoformat
+" vim-better-javascript-completion
+" vim-grepper
+" vim-hdevtools
+" vim-javascript
+" vim-javascript-syntax
+" vim-latex-live-preview
+" vim-lilypond-integrator
+" vim-tidal
+" vim-vimtex
+call plug#end()
+
+
+"""""""""""""""""
+" START OF FILE "
+"""""""""""""""""
 syntax on
 "syntax enable
 set number "Enables line numbering
@@ -22,6 +144,12 @@ set guioptions-=a
 """""""""""""""""
 set background=dark
 
+"""""""""""""
+" LIGHTLINE "
+"""""""""""""
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
 """"""""""""""
 " RAILSCASTS "
 """"""""""""""
@@ -74,25 +202,22 @@ set softtabstop=2 " number of spaces in tab when editing
 set smarttab "Improves tabbing
 set expandtab " tabs are spaces
 set shiftwidth=2  "Assists code formatting
-let g:SuperTabClosePreviewOnPopupClose = 1
+" let g:SuperTabClosePreviewOnPopupClose = 1
 
 
 """"""""""
 " CURSOR "
 """"""""""
-"set cursorline          " highlight current line
-"setlocal spell  "Enables spell checking (CURRENTLY DISABLED because it's kinda annoying). Make sure to uncomment the next line if you use this.
-"set spellfile=~/.vimwords.add  "The location of the spellcheck dictionary. Uncomment this line if you uncomment the previous line.
 set foldmethod=manual  "Lets you hide sections of code
-"let &t_Co=256
-"set background=dark
-"colorscheme anderson  
-"--- The following adds a sweet menu, press F4 to use it.
+
+""""""""
+" MENU "
+""""""""
+" The following adds a sweet menu? - press F4 to use it.
 source $VIMRUNTIME/menu.vim
 set cpo-=<
 set wcm=<c-z>
 map <f4> :emenu <c-z>
-"--- End sweet menu
 
 """""""""""""""
 " STATUS LINE "
@@ -110,55 +235,97 @@ set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}\  " highlight
 set statusline+=%b,0x%-8B\                   " current char
 set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
 
-"BUFFER MAPPING-------------
-map gn :bn<cr>
-map gp :bp<cr>
-map gd :bd<cr> 
+"""""""""""""
+" CLIPBOARD "
+"""""""""""""
+"set the yank to the system clipboard as well, comment out if strange behavior
+set clipboard=unnamed
 
-"SEARCH OPTIONS-------------------
-set ic
-map \s :set smartcase!<CR>
-set incsearch
 
 """"""""""""""""""""""""""""""""
 " ARNTZY BOY CONFIGS FROM HELL "
 """"""""""""""""""""""""""""""""
-" Yanking so hard
+
+"""""""""""""""""
+" MAPS / REMAPS "
+"""""""""""""""""
+" remap <leader> to ,
+let mapleader = ","
+
+" brilliant remap of : to ; credit to @sagnew
+nnoremap ; :
 
 " delete without yanking
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 
-" replace currently selected text with default register
-" without yanking it
+" replace currently selected text with default register without yanking it
 vnoremap <leader>p "_dP
 
-"Pretty Printing for a little Pretty Pony
+"deletes a buffer without closing the split window
+nnoremap <C-c> :bp\|bd #<CR>
+
+" clear search highlighting in case it is on
+nnoremap <leader><space> :noh<cr>
+
+" Switch between last two buffers
+nnoremap <leader><leader> <C-^> 
+
+" buffer mapping, 'go next', 'go previous', 'go delete...that one's a stretch'
+map gn :bn<cr>
+map gp :bp<cr>
+map gd :bd<cr> 
+
+""""""""""""
+" COMMANDS "
+""""""""""""
+" Pretty Printing for a little Pretty Pony
 command! PrettyPrintJSON %!python -m json.tool
 command! PrettyPrintHTML !tidy -mi -html -wrap 0 %
 command! PrettyPrintXML !tidy -mi -xml -wrap 0 %
 
-"deletes a buffer without closing the split window
-nnoremap <C-c> :bp\|bd #<CR>
-com! FormatJSON %!python -m json.tool
-nnoremap <leader><space> :noh<cr>   " Clear search highlighting with ,<space>
-nnoremap <tab> :bnext<cr>           " Tab to next buffer
-nnoremap <s-tab> :bprevious<cr>     " Shift-tab to previous buffer
-nnoremap <leader><leader> <C-^>     " Switch between last two buffers
+""""""""""""""""""
+" SEARCH OPTIONS "
+""""""""""""""""""
+set ic
+map \s :set smartcase!<CR>
+set incsearch
+set nohlsearch
 
-"set the yank to the system clipboard as well, comment out if strange behavior
-set clipboard=unnamed
-" noremap % v%
+""""""""""""""""
+" VIM-CELLMODE "
+""""""""""""""""
+let g:cellmode_default_mappings='0'
+
+"""""""""
+" BLACK "
+"""""""""
+autocmd BufWritePre *.py execute ':Black'
+let g:black_virtualenv = '~/venv/black'
+
+""""""""""""""
+" NCM2 STUFF "
+""""""""""""""
+" enable ncm2 for all buffers
+" autocmd BufEnter * call ncm2#enable_for_buffer()
+" IMPORTANT: :help Ncm2PopupOpen for more information
+" set completeopt=noinsert,menuone,noselect
+
+"""""""""
+" VIMUX "
+"""""""""
+" send selected text to the shell
+vnoremap <leader>tt y:call VimuxRunCommand(@")<cr>
+" send a larger selection of text to the shell
+autocmd FileType python vnoremap <leader>te "+y:call VimuxRunCommand("%paste")<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" TODO: START CLEANING/ORGANIZING HERE AND BELOW "
+""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""
 " MISC FROM JAMIS "
 """""""""""""""""""
-
-" remap <leader> to ,
-let mapleader = ","
-"
-" brilliant remap of : to ; credit to @sagnew
-nnoremap ; :
 
 " disable line wrapping; I often do :set wrap when dealing with wide files.
 set nowrap
@@ -248,46 +415,62 @@ nnoremap <Leader>rs :%s/\<<C-r><C-w>\>//g<Left><Left>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN CONFIG
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-packadd! matchit
-
 "instant markdown previewer
 let g:instant_markdown_autostart = 0
 
-"NERDTree --------------
+""""""""""""
+" NERDTree "
+""""""""""""
 " ,n opens nerdtree if you ever want it
 nnoremap ,n :NERDTree<CR>
+
 "toggle NERDTree
 silent! nmap <C-p> :NERDTreeToggle<CR>
 let g:NERDTreeMapActivateNode="o"
 let NERDTreeShowHidden=1
 
-"vim-latex-live-preview
+""""""""""""""""""""""""""
+" VIM-LATEX-LIVE-PREVIEW "
+""""""""""""""""""""""""""
 autocmd Filetype tex setl updatetime=1
 let g:livepreview_previewer = 'open -a Preview'
 
-"vim-closetags ---------
+"""""""""""""""""
+" VIM-CLOSETAGS "
+"""""""""""""""""
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.js"
 
-"DelimitMate --------
-let delimitMate_expand_cr = 1
+"""""""""""""""
+" DELIMITMATE "
+"""""""""""""""
+" let delimitMate_expand_cr = 1
 
-"HDEVTOOLS -------
+"""""""""""""
+" HDEVTOOLS "
+"""""""""""""
 au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F5> :HdevtoolsClear<CR>
 au FileType haskell nnoremap <buffer> <silent> <F6> :HdevtoolsInfo<CR>
+
+""""""""""""
+" DEOPLETE "
+""""""""""""
+" let g:deoplete#enable_at_startup = 1
 
 """""""""""""""
 " NEOCOMPLETE "
 """""""""""""""
 " Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
+" let g:neocomplete#enable_at_startup = 1
 
-call neocomplete#util#set_default_dictionary(
-  \ 'g:neocomplete#sources#omni#input_patterns',
-  \ 'elm',
-  \ '\.')
+" " Use smartcase.
+" let g:neocomplete#enable_smart_case = 1
+
+" call neocomplete#util#set_default_dictionary(
+  " \ 'g:neocomplete#sources#omni#input_patterns',
+  " \ 'elm',
+  " \ '\.')
+
 "Enable Omni Completion
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -306,7 +489,7 @@ map <silent> tw :call GHC_ShowType(1)<CR>
 """"""""""""""""""""""""""""""""""""
 " VIM-POLYGLOT SYNTAX HIGHLIGHTING "
 """"""""""""""""""""""""""""""""""""
-let g:jsx_ext_required = 0
+let g:jsx_ext_required = 1
 let g:polyglot_disabled = ['elm']
 
 """"""""""""""""""""""""""""""""
@@ -325,26 +508,24 @@ let g:vimjs#chromeapis = 0
 let g:javascript_plugin_jsdoc = 1
 " enables syntax highlighting for JSDOC
 
-"""""""""""""
-" SYNTASTIC "
-"""""""""""""
-map <silent> <Leader>e :Errors<CR>
-map <Leader>s :SyntasticToggleMode<CR>
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_quiet_messages = { "type": "style" }
-let g:syntastic_ocaml_checkers = ['merlin']
-let g:syntastic_python_pylint_args = ['--errors-only']
-let g:syntastic_javascript_checkers = ['standard'] 
-let g:loaded_syntastic_haskell_ghc_mod_checker = 1
+"""""""
+" ALE "
+"""""""
+map <Leader>s :ALEToggle<CR>
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_linters = {
+  \ 'python': ['pylint'] ,
+  \ 'javascript': ['eslint'],
+  \ }
+" This is eslint using the prettier plugin for eslint...might want to switch to simple eslint
+let g:ale_fixers = {
+\  'javascript': ['eslint'],
+\}
+let g:ale_linters_explicit = 1
+let g:ale_fix_on_save = 1
+" nnoremap <buffer> <silent> <LocalLeader>= :ALEFix<CR>
 
 """""""""""""""""
 " ELM SYNTASTIC "
@@ -382,7 +563,19 @@ let g:pymode_options_colorcolumn = 0
 """""""""""""
 " ULTISNIPS "
 """""""""""""
-let g:UltiSnipsSnippetsDir=$HOME.'/.vim/sniplets'
+" IMPORTANT: Ultisnips files match on these rules:
+    " snippet filename         filetype ~
+    " ruby.snippets            ruby
+    " perl.snippets            perl
+    " c.snippets               c
+    " c_my.snippets            c
+    " c/a                      c
+    " c/b.snippets             c
+    " all.snippets             all
+    " all/a.snippets           all
+" The default Ultisnip files in vim-snippets/Ultisnips don't always match that format
+
+" consider moving only definitions of snippets that I want to sniplets
 let g:UltiSnipsSnippetDirectories=['UltiSnips', 'sniplets']
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -392,17 +585,22 @@ let g:ultisnips_javascript = {
   \ 'semi': 'never',
   \ 'space-before-function-paren': 'always',
   \ }
-
+let g:snips_author = 'Aaron Arntz'
+let g:snips_author_email = 'aarntz@gmail.com'
 """""""""""""""""""
 " YOU COMPLETE ME "
 """""""""""""""""""
 let g:ycm_use_ultisnips_completer = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
-
 let g:ycm_semantic_triggers = {
      \ 'elm' : ['.'],
      \}
+" make YCM compatible with UltiSnips (using supertab)
+let g:SuperTabCrMapping                = 0
+let g:ycm_key_list_select_completion = ['<C-j>', '<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 """""""""
 " BOXES "
 """""""""
@@ -446,12 +644,6 @@ let NERDRemoveExtraSpaces = 1
 " Not specific to NERDCOMMENTER but removes the very annoying auto comment of the next line in vim
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-"LILYPOND Vim mode -- If this leads to errors, comment out the next 4 lines. 
-"filetype off
-"set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
-"filetype on
-"syntax on
-
 """""""""
 " TIDAL "
 """""""""
@@ -468,11 +660,5 @@ noremap <leader>c :ccl <bar> lcl<CR>
 """""""""""""""""""
 " FZF AND RIPGREP "
 """""""""""""""""""
-noremap <leader>f :Files <CR>
-
-let g:rg_command = '
-  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
-  \ -g "!{.git,node_modules,vendor}/*" '
-
-command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+noremap <leader>f :FZF<CR>
+noremap <leader>F :Rg<CR>
