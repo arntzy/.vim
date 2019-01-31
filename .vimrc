@@ -125,7 +125,6 @@ call plug#end()
 " START OF FILE "
 """""""""""""""""
 syntax on
-"syntax enable
 set number "Enables line numbering
 filetype plugin indent on
 " set completeopt-=preview
@@ -319,9 +318,6 @@ vnoremap <leader>tt y:call VimuxRunCommand(@")<cr>
 " send a larger selection of text to the shell
 autocmd FileType python vnoremap <leader>te "+y:call VimuxRunCommand("%paste")<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" TODO: START CLEANING/ORGANIZING HERE AND BELOW "
-""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""
 " MISC FROM JAMIS "
@@ -330,9 +326,7 @@ autocmd FileType python vnoremap <leader>te "+y:call VimuxRunCommand("%paste")<C
 " disable line wrapping; I often do :set wrap when dealing with wide files.
 set nowrap
 
-" I like being able to scroll with the mouse, since it's so close-by
-" on my laptop keyboard anyway; f4 disables it for ease of copying single
-" lines, and f3 reenables it
+" scroll with the mouse (I know.)
 set mouse=a 
 nnoremap <F3> :set mouse=a<CR>
 "nnoremap <F4> :set mouse=<CR>
@@ -345,9 +339,7 @@ nnoremap <leader>w8 :setlocal tabstop=8<CR>:setlocal shiftwidth=8<CR>
 " Save current file with root privileges
 cmap w!! w !sudo tee >/dev/null %
 
-" f2 to toggle paste mode; ie, when you want to paste stuff into vim, hit f2
-" and autoindent and a couple of other things will be temporarily shut off so
-" it gets pasted in correctly. 
+" f2 to toggle paste mode; when you want to paste stuff into vim, hit f2
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
@@ -362,8 +354,7 @@ nnoremap <leader>p p`[v`]=
 " hi Visual cterm=NONE ctermfg=black ctermbg=darkyellow
 
 " fix bug with hitting shift+o to add a new line before
-" it normally waits like 5 seconds to do anything when you use shift+o, this makes it immediate
-set timeout timeoutlen=1000 ttimeoutlen=100
+" set timeout timeoutlen=1000 ttimeoutlen=100
 
 " long syntax highlighting slows down vim
 set synmaxcol=512
@@ -382,7 +373,7 @@ vnoremap > >gv
 set wildmode=longest:full,full
 set wildmenu
 
-" my sexy tool for rearranging vim windows; grab a window with ,u and paste it
+"tool for rearranging vim windows; grab a window with ,u and paste it
 " with ,h ,j ,k ,l which put it relative to the window you're in when you use them
 " there's also ,<shift-u> to copy a window
 let g:wingrab_last_buffer = -1
@@ -396,6 +387,10 @@ nnoremap ,h :aboveleft vnew<CR>:execute "buffer! " . g:wingrab_last_buffer<CR><C
 nnoremap ,l :rightbelow vnew<CR>:execute "buffer! " . g:wingrab_last_buffer<CR><C-=><ESC><ESC>
 nnoremap ,k :aboveleft new<CR>:execute "buffer! " . g:wingrab_last_buffer<CR><C-=><ESC><ESC>
 nnoremap ,j :rightbelow new<CR>:execute "buffer! " . g:wingrab_last_buffer<CR><C-=><ESC><ESC>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" TODO: START CLEANING/ORGANIZING HERE AND BELOW "
+""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " show the version of this file that is currently committed to git, if we're in a git repo; useless otherwise
 " nnoremap ,z :vnew \| setlocal syntax=<C-r>=&syntax<CR> \| r !git show HEAD:<C-r>=bufname("%")<CR><CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
