@@ -388,21 +388,25 @@ nnoremap ,l :rightbelow vnew<CR>:execute "buffer! " . g:wingrab_last_buffer<CR><
 nnoremap ,k :aboveleft new<CR>:execute "buffer! " . g:wingrab_last_buffer<CR><C-=><ESC><ESC>
 nnoremap ,j :rightbelow new<CR>:execute "buffer! " . g:wingrab_last_buffer<CR><C-=><ESC><ESC>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" TODO: START CLEANING/ORGANIZING HERE AND BELOW "
-""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""
+" GIT "
+"""""""
 
 " show the version of this file that is currently committed to git, if we're in a git repo; useless otherwise
-" nnoremap ,z :vnew \| setlocal syntax=<C-r>=&syntax<CR> \| r !git show HEAD:<C-r>=bufname("%")<CR><CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
+nnoremap ,z :vnew \| setlocal syntax=<C-r>=&syntax<CR> \| r !git show HEAD:<C-r>=bufname("%")<CR><CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
+
+""""""""""
+" PYTEST "
+""""""""""
 
 " ,pf runs pytest on the current file and shows its output in a new window
-" nnoremap ,pf :vnew \| r !py.test <C-r>=bufname("%")<CR><CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
+nnoremap ,pf :vnew \| r !py.test <C-r>=bufname("%")<CR><CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
 
 " ,pa runs pytest in the directory vim was opened from with no filtering as to what is run
-" nnoremap ,pa :vnew \| r !py.test<CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
+nnoremap ,pa :vnew \| r !py.test<CR><ESC>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nomodifiable<CR><ESC><ESC>
 
 " hard-reset currently open file, to reset things like :set wrap to defaults
-"nnoremap ,r :e __nonexistantfile__ \| e <C-r>=bufname("%")<CR><CR>
+nnoremap ,r :e __nonexistantfile__ \| e <C-r>=bufname("%")<CR><CR>
 
 " ,rs searchs and replaces globally the word under the cursor
 nnoremap <Leader>rs :%s/\<<C-r><C-w>\>//g<Left><Left>
