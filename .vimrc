@@ -25,6 +25,15 @@ Plug 'mattn/emmet-vim'
 Plug 'ambv/black'
 Plug 'janko-m/vim-test'
 Plug 'manicmaniac/coconut.vim'
+"""""""""""
+" Clojure "
+"""""""""""
+Plug 'tpope/vim-fireplace'
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+Plug 'guns/vim-clojure-static'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
 """"""""""""""""""""""""""""
 " Tmux/Ipython Integration "
 """"""""""""""""""""""""""""
@@ -91,6 +100,11 @@ Plug 'tpope/vim-fugitive'
 Plug 'dahu/vim-fanfingtastic'
 Plug 'tpope/vim-eunuch'
 Plug 'terryma/vim-multiple-cursors'
+
+"""""""""""""""
+" GPG Editing "
+"""""""""""""""
+Plug 'jamessan/vim-gnupg'
 
 """"""""""""""""""""""""""""""""""""""""
 " Old Plugs From Previous Installation "
@@ -301,6 +315,7 @@ let g:cellmode_default_mappings='0'
 """""""""
 autocmd BufWritePre *.py execute ':Black'
 let g:black_virtualenv = '~/venv/black'
+let g:black_linelength = 88
 
 """"""""""""""
 " NCM2 STUFF "
@@ -642,7 +657,9 @@ let g:NERDSpaceDelims = 1
 let NERDRemoveExtraSpaces = 1
 " Not specific to NERDCOMMENTER but removes the very annoying auto comment of the next line in vim
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
+let g:NERDCustomDelimiters = {
+        \ 'tidal': {'left': '--'},
+    \ }
 """""""""
 " TIDAL "
 """""""""
